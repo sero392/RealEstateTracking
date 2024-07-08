@@ -1,11 +1,17 @@
 <template>
   <div id="app">
-    <AppointmentList></AppointmentList>
+    <v-app>
+      <v-main>
+        <v-container>
+          <AppointmentList></AppointmentList>
+        </v-container>
+      </v-main>
+    </v-app>
   </div>
 </template>
 
 <script>
-import AppointmentList from './components/Appointments/AppointmentList.vue';
+import AppointmentList from './components/Appointments/ListComps/AppointmentList.vue';
 
 export default {
   name: 'App',
@@ -16,7 +22,6 @@ export default {
 </script>
 
 <style>
-@import '~vuetify/dist/vuetify.min.css';
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

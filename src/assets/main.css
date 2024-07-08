@@ -1,0 +1,13 @@
+.main-text-field{
+    border: 1px solid #cbcbcb;
+    font-size: 12px;
+    outline: none;
+    padding-left: 2px;
+}
+.main-combobox{
+    border: 1px solid #cbcbcb;
+    min-width: 150px;
+    padding: 5px;
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+}
