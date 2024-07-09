@@ -56,7 +56,8 @@ export default {
             var th = this;
             var date1 = th.$moment(th.AppointmentDate);
             var date2 = th.$moment(new Date());
-            return date2.diff(date1, 'days');
+            
+            return Math.abs(date2.diff(date1, 'days'));
         }
     },
     data() {

@@ -30,7 +30,6 @@ export default {
     methods: {
         search() {
             var th = this;
-    
             th.$emit('searched');
         },
     }
