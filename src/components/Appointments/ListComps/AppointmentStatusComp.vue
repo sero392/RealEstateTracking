@@ -24,7 +24,7 @@
         </div>
         <div>
             <span small class="overline">
-                {{ $moment(AppointmentDate).format('DD/MM/YYYY') }}
+                {{ $moment(AppointmentDate).format('DD/MM/YYYY HH:mm') }}
                 <v-icon small>
                     mdi-calendar-range
                 </v-icon>
