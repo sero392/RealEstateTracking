@@ -182,7 +182,7 @@ export default {
           m.Status = th.$createStatus(
             m.fields.appointment_date,
             m.fields.is_cancelled
-          );
+          );//Ana data içerisine status diye bir değişken oluşturup her bir değer için atama yaptım ki filtrelemede işimiz kolaylaşsın.
           m.AgentData = [];
           if (m.fields.agent_id) {
             m.AgentData = th.agentList.filter((f) =>
@@ -195,11 +195,11 @@ export default {
           (b, a) =>
             moment(b.fields.appointment_date).valueOf() -
             moment(a.fields.appointment_date).valueOf()
-        );
+        );//Başvuru tarihini küçükten büyüğe doğru burada sıraladım.
         th.tempRecords = [...th.records];
         th.finallyRecords = [...th.tempRecords];
-
-        offset = response.data.offset;
+        
+        offset = response.data.offset;//apiden tüm veriler tek bir seferde gelmiyor. offset değeri göndermek gerekliymiş. Bu yüzden api isteğini offset null gelene kadar tekrar ettiriyorum.
       } while (offset);
       th.loading = false;
       th.displayPage(th.currentPage);
