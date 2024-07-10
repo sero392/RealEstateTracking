@@ -2,58 +2,26 @@
   <div>
     <v-row class="ma-1">
       <v-col>
-        <v-card prominent tile elevation="2">
+        <v-card elevation="1" class="rounded-2">
           <v-layout row class="px-5">
-            <v-flex
-              xs12
-              sm3
-              lg3
-              xl3
-              class="d-flex justify-center align-center mt-1 mt-md-0 pa-1"
-            >
-              <AgentComp
-                v-bind:agentList="agentList"
-                v-model="selectedAgentValue"
-                v-on:searched="searched"
-              ></AgentComp>
+            <v-flex xs12 sm12 md12 lg3 xl3 class="d-flex justify-center align-center mt-1 mt-md-0 pa-1">
+              <AgentComp v-bind:agentList="agentList" v-model="selectedAgentValue" v-on:searched="searched"></AgentComp>
             </v-flex>
-            <v-flex xs12 sm3 lg3 xl3 class="d-flex justify-center align-center">
-              <StatusFilterComp
-                v-bind:records="records"
-                v-model="statusValue"
-                v-on:searched="searched"
-              >
-              </StatusFilterComp>
+            <v-flex xs12 sm12 md12 lg3 xl3 class="d-flex justify-center align-center">
+              <div class="w-50">
+                <StatusFilterComp v-bind:records="records" v-model="statusValue" v-on:searched="searched">
+                </StatusFilterComp>
+              </div>
+   
             </v-flex>
-            <v-flex
-              xs12
-              sm3
-              lg3
-              xl3
-              class="d-flex justify-center align-center"
-            >
-              <DateRangeFilterComp
-                v-bind:records="records"
-                v-bind:startDateValue="startDateValue"
-                v-bind:endDateValue="endDateValue"
-                v-on:update:startDateValue="startDateValue = $event"
-                v-on:update:endDateValue="endDateValue = $event"
-                v-on:searched="searched"
-              >
+            <v-flex xs12 sm12 md12 lg3 xl3 class="d-flex justify-center align-center">
+              <DateRangeFilterComp v-bind:records="records" v-bind:startDateValue="startDateValue"
+                v-bind:endDateValue="endDateValue" v-on:update:startDateValue="startDateValue = $event"
+                v-on:update:endDateValue="endDateValue = $event" v-on:searched="searched">
               </DateRangeFilterComp>
             </v-flex>
-            <v-flex
-              xs12
-              sm3
-              lg3
-              xl3
-              class="d-flex justify-center align-center mb-1 mb-md-0"
-            >
-              <SearchComp
-                v-bind:records="records"
-                v-on:searched="searched"
-                v-model="searchValue"
-              >
+            <v-flex xs12 sm12 md12 lg3 xl3 class="d-flex justify-center align-center mb-1 mb-md-0">
+              <SearchComp v-bind:records="records" v-on:searched="searched" v-model="searchValue">
               </SearchComp>
             </v-flex>
           </v-layout>
@@ -68,9 +36,8 @@
       </v-col>
       <v-spacer></v-spacer>
       <v-col cols="auto">
-        <v-btn tile small color="primary" v-on:click="openActionDialog"
-          >Yeni Başvuru
-          <v-icon> mdi-plus </v-icon>
+        <v-btn tile x-small color="primary" v-on:click="openActionDialog">new appointment
+          <v-icon small right> mdi-plus </v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -80,27 +47,14 @@
           <v-overlay absolute v-bind:value="loading">
             <div class="loader"></div>
           </v-overlay>
-          <v-row
-            dense
-            class="mouse-pointer"
-            v-for="(item, index) in finallyRecords"
-            v-bind:key="index"
-            v-on:click="openUpdate(item)"
-          >
+          <v-row dense class="mouse-pointer" v-for="(item, index) in finallyRecords" v-bind:key="index"
+            v-on:click="openUpdate(item)">
             <v-col>
-              <v-card
-                v-if="item.fields.contact_id?.length > 0"
-                tile
-                elevation="1"
-                class="ma-3"
-              >
+              <v-card v-if="item.fields.contact_id?.length > 0" tile elevation="1" class="ma-3"
+                v-bind:color="index % 2 == 0 ? 'blue-grey lighten-4' : 'blue-grey lighten-5'">
                 <v-row>
-                  <v-col>
-                    <v-row
-                      dense
-                      v-for="(item2, index2) in item.fields.contact_id"
-                      v-bind:key="index2"
-                    >
+                  <v-col cols="12" sm="12" md="3" lg="3" xl="3">
+                    <v-row dense v-for="(item2, index2) in item.fields.contact_id" v-bind:key="index2">
                       <v-col cols="12">
                         <span class="caption">
                           <v-icon small>mdi-account</v-icon>
@@ -122,34 +76,29 @@
                       </v-col>
                     </v-row>
                   </v-col>
-                  <v-col class="d-flex align-center justify-center">
+                  <v-col cols="12" sm="12" md="3" lg="3" xl="3" class="d-flex align-center justify-center">
                     <span class="caption">
                       <v-icon> mdi-home </v-icon>
                       {{ item.fields.appointment_address }}
                     </span>
                   </v-col>
-                  <v-col class="d-flex align-center justify-center">
+                  <v-col cols="12" sm="12" md="3" lg="3" xl="3" class="d-flex align-center justify-center py-0">
                     <SingleAgentComp :agentList="item.AgentData">
                     </SingleAgentComp>
                   </v-col>
-                  <v-col class="d-flex align-center justify-center">
-                    <AppointmentStatusComp
-                      v-bind:IsCancel="item.fields.is_cancelled"
-                      v-bind:AppointmentDate="item.fields.appointment_date"
-                    >
+                  <v-col cols="12" sm="12" md="3" lg="3" xl="3" class="d-flex align-center justify-center">
+                    <AppointmentStatusComp v-bind:IsCancel="item.fields.is_cancelled"
+                      v-bind:AppointmentDate="item.fields.appointment_date">
                     </AppointmentStatusComp>
                   </v-col>
                 </v-row>
               </v-card>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col>
-              <v-pagination
-                v-model="currentPage"
-                v-bind:length="pagiSize"
-                v-on:input="displayPage(currentPage)"
-              ></v-pagination>
+          <v-row dense class="justify-center">
+            <v-col cols="6">
+              <v-pagination circle color="purple" v-model="currentPage" v-bind:length="pagiSize"
+                v-on:input="displayPage(currentPage)"></v-pagination>
             </v-col>
           </v-row>
         </v-card>
@@ -164,11 +113,7 @@
             <v-icon small> mdi-close </v-icon>
           </v-btn>
         </v-system-bar>
-        <AppointmentActionComp
-          v-if="dialog"
-          v-bind:editData="editData"
-          v-on:reload="reload"
-        ></AppointmentActionComp>
+        <AppointmentActionComp v-if="dialog" v-bind:editData="editData" v-on:reload="reload"></AppointmentActionComp>
       </v-card>
     </v-dialog>
   </div>
@@ -299,8 +244,8 @@ export default {
           ? length + 1
           : length
         : th.records.length % pageSize != 0
-        ? length + 1
-        : length;
+          ? length + 1
+          : length;
       th.pagiSize = length;
     },
     displayPage(page) {
@@ -341,7 +286,7 @@ export default {
       var searchedArray = th.tempRecords.map((m) => {
         return {
           search_text:
-            `${m.fields.contact_name}${m.fields.contact_surname}${m.fields.contact_email}${m.fields.contact_phone}`.toLowerCase(),
+            `${m.fields.contact_name}${m.fields.contact_surname}${m.fields.contact_email}${m.fields.contact_phone}${m.fields.appointment_address}`.toLowerCase(),
           search_id: m.id,
           data: m,
         };
@@ -410,6 +355,9 @@ export default {
       var th = this;
       th.dialog = false;
       th.statusValue = "";
+      th.searchValue = '';
+      th.startDateValue = '';
+      th.endDateValue = '';
       th.fetchAllData();
     },
   },

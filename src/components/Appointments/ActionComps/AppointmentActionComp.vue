@@ -182,6 +182,7 @@ export default {
         //Contact Bilgilerini Alıyor.
         fetchAllData() {
             var th = this;
+            th.loading = true;
             const tableId = "tbl0TuknKqXHysejd";
             const url = `https://api.airtable.com/v0/${process.env.VUE_APP_AIRTABLE_BASE_ID}/${tableId}`;
             axios
@@ -191,6 +192,7 @@ export default {
                     },
                 })
                 .then((response) => {
+                    th.loading = false;
                     th.contacts = response.data.records.map((m) => m);
                     th.createSearchString();
                     th.tempContacts = [...th.contacts];
@@ -203,6 +205,7 @@ export default {
                     }
                 })
                 .catch((error) => {
+                    th.loading = false;
                     console.error("Axios isteği gönderilirken hata oluştu!", error);
                 });
         },
@@ -286,7 +289,7 @@ export default {
                 if (status == th.$status.ISCOMING && th.selectedStatus == th.$status.COMPLETED) {
                     th.errors.status = "Henüz Randevu Tarihi Geçmemiş, Tamamlanmış Yapamazsınız!";
                 }
-                else if (status == th.$status.COMPLETED && th.selectedStatus == th.$status.ISCOMING) {
+                else if (!moment.utc(th.edit.appointment_date).isAfter(moment.utc(new Date())) && th.selectedStatus == th.$status.ISCOMING) {
                     th.errors.status = "Randevu Tarihi Geçmiştir, Beklemede Yapamazsınız!";
                 }
             }

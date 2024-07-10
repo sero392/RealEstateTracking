@@ -9,8 +9,8 @@ export default {
             COMPLETED: 3,
         };
         Vue.prototype.$createStatus = function (appointmentDate, isCancel) {
-            var date1 = moment(appointmentDate);
-            var date2 = moment(new Date());
+            var date1 = moment.utc(appointmentDate);
+            var date2 = moment.utc(new Date());
             if (isCancel) {
                 return Vue.prototype.$status.CANCEL;
             }
