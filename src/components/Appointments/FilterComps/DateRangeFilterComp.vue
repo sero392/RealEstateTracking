@@ -1,14 +1,12 @@
 <template>
-    <div>
-        <v-row class=" pa-4 justify-center">
-            <v-col cols="auto" class="pa-0">
+        <v-layout row wrap class="py-4 justify-center ga-5">
+            <v-flex >
                 <input class="main-combobox" type="datetime-local" v-bind:value="startDateValue" v-on:change="changeStartDate" />
-            </v-col>
-            <v-col cols="auto" class="pa-0 mt-1">
+            </v-flex>
+            <v-flex >
                 <input class="main-combobox" type="datetime-local"  v-bind:value="endDateValue" v-on:change="changeEndDate" />
-            </v-col>
-        </v-row>
-    </div>
+            </v-flex>
+        </v-layout>
 </template>
 <script>
 import moment from 'moment';

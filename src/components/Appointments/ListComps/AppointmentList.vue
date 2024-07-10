@@ -3,7 +3,20 @@
     <v-row class="ma-1">
       <v-col>
         <v-card prominent tile elevation="2">
-          <v-layout row>
+          <v-layout row class="px-5">
+            <v-flex
+              xs12
+              sm3
+              lg3
+              xl3
+              class="d-flex justify-center align-center mt-1 mt-md-0 pa-1"
+            >
+              <AgentComp
+                v-bind:agentList="agentList"
+                v-model="selectedAgentValue"
+                v-on:searched="searched"
+              ></AgentComp>
+            </v-flex>
             <v-flex xs12 sm3 lg3 xl3 class="d-flex justify-center align-center">
               <StatusFilterComp
                 v-bind:records="records"
@@ -17,20 +30,7 @@
               sm3
               lg3
               xl3
-              class="d-flex justify-center align-center mt-1 mt-md-0"
-            >
-              <AgentComp
-                v-bind:agentList="agentList"
-                v-model="selectedAgentValue"
-                v-on:searched="searched"
-              ></AgentComp>
-            </v-flex>
-            <v-flex
-              xs12
-              sm3
-              lg3
-              xl3
-              class="d-flex justify-center align-center mt-1 mt-md-0"
+              class="d-flex justify-center align-center"
             >
               <DateRangeFilterComp
                 v-bind:records="records"
@@ -157,7 +157,7 @@
     </v-row>
 
     <v-dialog width="500" v-model="dialog">
-      <v-card class="rounded-0" min-height="200">
+      <v-card class="rounded-0">
         <v-system-bar dark color="blue-grey lighten-3">
           <v-spacer></v-spacer>
           <v-btn small icon v-on:click="dialog = false">
@@ -393,6 +393,9 @@ export default {
       th.editData.appointment_address = item.fields.appointment_address;
       th.editData.appointment_date = item.fields.appointment_date;
       th.editData.id = item.id;
+      th.editData.status = item.Status;
+      th.editData.isCancel = item.fields.is_cancelled;
+      th.editData.appointments = [...th.records];
       th.editData.contact = item.fields.contact_id.map((m, ix) => {
         return {
           ContactId: m,

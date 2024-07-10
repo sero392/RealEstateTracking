@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <select class="main-combobox" v-bind:value="value" v-on:change="changeStatus">
+    <div class="w-100">
+        <select class="main-combobox w-100" v-bind:value="value" v-on:change="changeStatus">
             <option v-for="(item, index) in statusList" v-bind:key="index" v-bind:value="item.value">
                 {{ item.text }}
             </option>

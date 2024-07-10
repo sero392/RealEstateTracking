@@ -1,12 +1,12 @@
 <template>
     <div>
         <div v-if="cmpStatus == $status.CANCEL">
-            <v-chip dark color="red">
+            <v-chip small dark color="red">
                 Canceled
             </v-chip>
         </div>
         <div v-if="cmpStatus == $status.ISCOMING">
-            <v-chip color="primary">
+            <v-chip small color="primary">
                 <span>
                     Up Coming
                 </span>
@@ -18,12 +18,12 @@
         </div>
 
         <div v-if="cmpStatus == $status.COMPLETED">
-            <v-chip color="success">
+            <v-chip small color="success">
                 Completed
             </v-chip>
         </div>
         <div>
-            <span class="overline">
+            <span small class="overline">
                 {{ $moment(AppointmentDate).format('DD/MM/YYYY') }}
                 <v-icon small>
                     mdi-calendar-range

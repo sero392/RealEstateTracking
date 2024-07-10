@@ -1,5 +1,5 @@
 <template>
-    <v-layout wrap class="mw-500 ml-2">
+    <v-layout wrap class="mw-200 ml-2">
       <v-flex class="pa-0" v-for="(item, index) in openAgents" v-bind:key="index">
         <v-avatar
           dark
