@@ -1,6 +1,10 @@
 <template>
     <div>
-        <v-overlay absolute v-bind:value="loading"></v-overlay>
+        <v-overlay absolute v-bind:value="loading">
+            <div class="loader">
+
+            </div>
+        </v-overlay>
         <v-container fluid>
             <v-row dense>
                 <v-col>

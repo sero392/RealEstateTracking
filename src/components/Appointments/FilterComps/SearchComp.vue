@@ -1,5 +1,5 @@
 <template>
-    <div class="ml-auto">
+    <div >
         <input placeholder="arama yap" class="main-text-field" type="text" v-bind:value="value"
             v-on:input="$emit('input', $event.target.value)" />
         <v-btn icon x-small v-on:click="search">

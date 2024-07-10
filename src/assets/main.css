@@ -1,3 +1,4 @@
+/*#region input css */
 .main-text-field{
     border: 1px solid #cbcbcb;
     font-size: 12px;
@@ -14,6 +15,11 @@
     -moz-appearance: auto;
 
 }
+/* #endregion */
+
+/*#region common css */
+
+
 
 .mouse-pointer{
     cursor: pointer !important;
@@ -22,3 +28,37 @@
 .w-100{
     width: 100%;
 }
+
+.mw-500{
+    max-width: 200px !important;
+}
+/* #endregion */
+
+/*#region loader*/
+.loader {
+    width: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(farthest-side,#ED303C 94%,#0000),
+      radial-gradient(farthest-side,#3B8183 94%,#0000),
+      radial-gradient(farthest-side,#FAD089 94%,#0000),
+      radial-gradient(farthest-side,#FF9C5B 94%,#0000),
+      #ED303C;
+    background-size: 105% 105%;
+    background-repeat: no-repeat;
+    animation: l5 2s infinite; 
+  }
+  @keyframes l5 {
+    0%  {background-position: 50% -50px,-40px 50%, 50% calc(100% + 50px),calc(100% + 50px) 50%}
+    20%,
+    25% {background-position: 50% -50px,-50px 50%, 50% calc(100% + 50px),50% 50%}
+    45%,
+    50% {background-position: 50% -50px,-50px 50%, 50% 50%              ,50% 50%}
+    75%,
+    75% {background-position: 50% -50px, 50%  50%, 50% 50%              ,50% 50%}
+    95%,
+    100%{background-position: 50%  50% , 50%  50%, 50% 50%              ,50% 50%}
+  }
+
+  /*#endregion */

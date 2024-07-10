@@ -1,10 +1,10 @@
 <template>
     <div>
-        <v-row class="ml-2">
-            <v-col>
+        <v-row class=" pa-4 justify-center">
+            <v-col cols="auto" class="pa-0">
                 <input class="main-combobox" type="datetime-local" v-bind:value="startDateValue" v-on:change="changeStartDate" />
             </v-col>
-            <v-col>
+            <v-col cols="auto" class="pa-0 mt-1">
                 <input class="main-combobox" type="datetime-local"  v-bind:value="endDateValue" v-on:change="changeEndDate" />
             </v-col>
         </v-row>
