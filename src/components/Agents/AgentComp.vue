@@ -68,10 +68,10 @@ export default {
     },
     selectAvatar(item) {
       var th = this;
-      var isSelectedBefore = th.selectedAgent.find((s) => s == item.id);
+      var isSelectedBefore = th.selectedAgent.find((s) => s == item.id); //Aranan değere göre liste içerisinden elamanı buldurur
       if (!isSelectedBefore) {
-        th.selectedAgent.push(item.id);
-        item.IsSelected = true;
+        th.selectedAgent.push(item.id); //Bulunan liste boş ise id'si eklenir.
+        item.IsSelected = true;//İlgili elamanın "IsSelected" propertysi true yapılır.
       } else {
         th.selectedAgent.splice(th.selectedAgent.indexOf(item.id), 1);
         item.IsSelected = false;

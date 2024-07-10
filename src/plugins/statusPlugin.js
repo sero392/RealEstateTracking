@@ -3,12 +3,14 @@ import moment from 'moment'
 export default {
 
     install(Vue) {
+        //Okunması kolay olsun diye enum şeklinde oluşturdum.
         Vue.prototype.$status = {
             CANCEL: 1,
-            ISCOMING:2,
+            ISCOMING: 2,
             COMPLETED: 3,
         };
         Vue.prototype.$createStatus = function (appointmentDate, isCancel) {
+            //Plugin olarak oluşturdum çünkü bu şekilde çok fazla yerde kullanılıyor.
             var date1 = moment.utc(appointmentDate);
             var date2 = moment.utc(new Date());
             if (isCancel) {

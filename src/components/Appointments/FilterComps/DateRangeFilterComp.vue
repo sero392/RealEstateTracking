@@ -35,7 +35,8 @@ export default {
             var startDate = moment(event.target.value);
             var endDate = moment(th.endDateValue);
             if (startDate.isAfter(endDate)) {
-                event.target.value = th.endDateValue;
+            
+                event.target.value = th.endDateValue; //bu işlemin yapılmasının sebebi startDate endDate tarihini geçemesin diye yapıldı, aynısı aşğıda da var.
             }
             th.$emit('update:startDateValue', event.target.value);
       

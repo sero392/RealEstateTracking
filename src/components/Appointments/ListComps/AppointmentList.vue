@@ -12,7 +12,7 @@
                 <StatusFilterComp v-bind:records="records" v-model="statusValue" v-on:searched="searched">
                 </StatusFilterComp>
               </div>
-   
+
             </v-flex>
             <v-flex xs12 sm12 md12 lg3 xl3 class="d-flex justify-center align-center">
               <DateRangeFilterComp v-bind:records="records" v-bind:startDateValue="startDateValue"
@@ -236,16 +236,11 @@ export default {
     paginationSize: function (pageSize) {
       var th = this;
       var length = 0;
-      length = th.isFiltered
-        ? Math.floor(th.tempRecords.length / pageSize)
-        : Math.floor(th.records.length / pageSize);
-      length = th.isFiltered
-        ? th.tempRecords.length % pageSize != 0
-          ? length + 1
-          : length
-        : th.records.length % pageSize != 0
-          ? length + 1
-          : length;
+      //Bu kısım da herhangi bir filtre uygulandıysa sayfalama sayısını hesaplatmayı filtrelenen veriye göre yaptırıyorum.
+      //isFiltered alanı bunu kontrol ediyor. Eğer filtreleme varsa tempRecords yani filtreli veriden hesapla yoksa tüm veriden hesapla
+      //Bu şekilde ayırmadığımda sayfalama yapısı biraz karıştı o yüzden böyle yapmayı tercih ettim.
+      length = th.isFiltered ? Math.floor(th.tempRecords.length / pageSize) : Math.floor(th.records.length / pageSize);
+      length = th.isFiltered ? th.tempRecords.length % pageSize != 0 ? length + 1: length : th.records.length % pageSize != 0 ? length + 1 : length;
       th.pagiSize = length;
     },
     displayPage(page) {
@@ -254,15 +249,18 @@ export default {
       const startIndex = (page - 1) * pageSize;
       const endIndex = startIndex + pageSize;
       th.paginationSize(pageSize);
-      th.finallyRecords = th.isFiltered
-        ? [...th.tempRecords.slice(startIndex, endIndex)]
-        : [...th.records.slice(startIndex, endIndex)];
+      //Burayı da ayırdım çünkü isFiltered alanı olmadığında ve sayfalama işlemini tempRecords listesinde yaptığımda veri kırpılmış oluyor 
+      //tekrardan sayfalamaya çalıştığımda elimde ilk veri olmadığından kırpılmış veri olduğundan sorun yaşadım.
+      //bu nedenle filtre uygulandıysa tempRecords listesinde sayfalama yap uygulanmadıysa ana veride yap diye ayırdım.
+      th.finallyRecords = th.isFiltered ? [...th.tempRecords.slice(startIndex, endIndex)] : [...th.records.slice(startIndex, endIndex)];
     },
 
     //#endregion
     //#region Filters
     searched() {
       var th = this;
+      //Bu metod filtre componentlerinde yapılan arama değerlerine göre filtreleme yapıyor.
+      //v-model sayesinde componentlerde yapılan filtrelemeleri alıp değişkenlere aktarıyorum.
       th.isFiltered = true;
       th.currentPage = 1;
       th.tempRecords = [...th.records];
@@ -286,7 +284,7 @@ export default {
       var searchedArray = th.tempRecords.map((m) => {
         return {
           search_text:
-            `${m.fields.contact_name}${m.fields.contact_surname}${m.fields.contact_email}${m.fields.contact_phone}${m.fields.appointment_address}`.toLowerCase(),
+            `${m.fields.contact_name}${m.fields.contact_surname}${m.fields.contact_email}${m.fields.contact_phone}${m.fields.appointment_address}`.toLowerCase(), //Arama yapılacak tüm alanları burada tek bir stringte topluyorum.
           search_id: m.id,
           data: m,
         };
@@ -335,6 +333,7 @@ export default {
     },
     openUpdate(item) {
       var th = this;
+      //Bu kısım edit modalını açarken gelecek verilerin bind edildiği kısım.
       th.editData.appointment_address = item.fields.appointment_address;
       th.editData.appointment_date = item.fields.appointment_date;
       th.editData.id = item.id;
@@ -354,6 +353,7 @@ export default {
     reload() {
       var th = this;
       th.dialog = false;
+      //Edit Modalında Bir Hareket Olduysa Filtreleme Temizlemelerini Aşağıda Yapıyorum.
       th.statusValue = "";
       th.searchValue = '';
       th.startDateValue = '';

@@ -214,9 +214,9 @@ export default {
             var th = this;
             th.tempContacts = [...th.contacts];
             if (event.target.value) {
-                var val = event.target.value.toLowerCase().replace(" ", "").trim();
+                var val = event.target.value.toLowerCase().replace(" ", ""); //büyük/küçük harf ve boşluk karakterleri gelirse diye kontrol..
                 th.tempContacts = th.tempContacts.filter((s) =>
-                    s.SearchString.includes(val)
+                    s.SearchString.includes(val)//Daha önce adı ve soyadı eklediğimiz değişkende aratma yapıyorum.
                 );
             }
         },
@@ -241,7 +241,7 @@ export default {
             var th = this;
             th.contacts.map((m) => {
                 m.SearchString =
-                    `${m.fields.contact_name}${m.fields.contact_surname}`.toLowerCase();
+                    `${m.fields.contact_name}${m.fields.contact_surname}`.toLowerCase(); //adı ve soyadı tek bir değişkende topluyorum ki aratması kolay olsun...
                 return m;
             });
         },
@@ -273,10 +273,10 @@ export default {
         //#region Validate
         validate() {
             var th = this;
-            th.errors = {};
+            th.errors = {};//temel validasyon nesnemizi her seferinde boşaltıyoruz.
             th.isValid = false;
             if (th.model.fields.contact_id.length == 0) {
-                th.errors.contact = "Lütfen Kişi Seçiniz.";
+                th.errors.contact = "Lütfen Kişi Seçiniz."; //bu kısımlarda errors sınıfının ilgili alanlarını dolduruyoruz ki aşağıdaki gibi kontrol yapalım..
             }
             if (!th.model.fields.appointment_address) {
                 th.errors.address = "Lütfen Adres Giriniz.";
@@ -293,7 +293,8 @@ export default {
                     th.errors.status = "Randevu Tarihi Geçmiştir, Beklemede Yapamazsınız!";
                 }
             }
-            if (Object.keys(th.errors).length == 0) {
+            if (Object.keys(th.errors).length == 0)//Eğer hata var ise yukarıda errors sınıflarının içerisine field olarak eklenmiş oluyor. Eğer eklenmediyse hata yok demektir.
+             {
                 th.isValid = true;
             }
         },
