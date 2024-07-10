@@ -7,7 +7,7 @@
             <v-row dense>
                 <v-col>
                     <v-icon small>mdi-calendar</v-icon>
-                    <span class="caption">Create An Appointment</span>
+                    <span class="caption">{{ edit.id ? 'Edit' : 'Create' }} An Appointment</span>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -122,7 +122,7 @@
             <v-row>
                 <v-col>
                     <v-btn tile small color="primary" v-on:click="appointmentAction">
-                        Create
+                        {{ edit.id ? 'Update' : 'Create' }}
                         <v-icon small>mdi-check</v-icon>
                     </v-btn>
                 </v-col>
