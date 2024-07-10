@@ -358,6 +358,10 @@ export default {
       th.searchValue = '';
       th.startDateValue = '';
       th.endDateValue = '';
+      th.agentList = th.agentList.map(s => {
+        s.IsSelected = false;
+        return s;
+      });
       th.fetchAllData();
     },
   },
