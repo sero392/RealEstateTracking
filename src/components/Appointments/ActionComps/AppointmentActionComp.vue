@@ -257,6 +257,8 @@ export default {
             th.model.fields.contact_id = th.edit.contact.map((m) => {
                 return m.ContactId;
             });
+            //Normalde bu kısımda agent ekleniyordu fakat api tarafından agent eklendiğinde hep hata döndü o yüzden kaldırmak zorunda kaldım.
+            //Agent ataması yaparak api tarafına kayıt atamadım.
             th.model.id = th.edit.id;
             th.relatedAppointments = th.edit.contact.map(m => {
                 const appointments = th.edit.appointments.filter(s => {
