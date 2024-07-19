@@ -186,11 +186,12 @@ export default {
           m.AgentData = [];
           if (m.fields.agent_id) {
             m.AgentData = th.agentList.filter((f) =>
-              f.id.includes(m.fields.agent_id)
+              m.fields.agent_id.some(l => l.includes(f.id))
             );
           }
           return m;
         });
+ 
         th.records = [...th.records, ...data].sort(
           (b, a) =>
             moment(b.fields.appointment_date).valueOf() -
@@ -198,7 +199,7 @@ export default {
         );//Başvuru tarihini küçükten büyüğe doğru burada sıraladım.
         th.tempRecords = [...th.records];
         th.finallyRecords = [...th.tempRecords];
-        
+
         offset = response.data.offset;//apiden tüm veriler tek bir seferde gelmiyor. offset değeri göndermek gerekliymiş. Bu yüzden api isteğini offset null gelene kadar tekrar ettiriyorum.
       } while (offset);
       th.loading = false;
@@ -240,7 +241,7 @@ export default {
       //isFiltered alanı bunu kontrol ediyor. Eğer filtreleme varsa tempRecords yani filtreli veriden hesapla yoksa tüm veriden hesapla
       //Bu şekilde ayırmadığımda sayfalama yapısı biraz karıştı o yüzden böyle yapmayı tercih ettim.
       length = th.isFiltered ? Math.floor(th.tempRecords.length / pageSize) : Math.floor(th.records.length / pageSize);
-      length = th.isFiltered ? th.tempRecords.length % pageSize != 0 ? length + 1: length : th.records.length % pageSize != 0 ? length + 1 : length;
+      length = th.isFiltered ? th.tempRecords.length % pageSize != 0 ? length + 1 : length : th.records.length % pageSize != 0 ? length + 1 : length;
       th.pagiSize = length;
     },
     displayPage(page) {
@@ -316,13 +317,9 @@ export default {
     },
     filterAgent() {
       var th = this;
-      var newArr = th.selectedAgentValue
-        .map((m) => {
-          return th.tempRecords.find((f) => {
-            return f.fields.agent_id == m;
-          });
-        })
-        .filter((f) => f != undefined);
+      var newArr = th.tempRecords.filter(f => {
+        return f.fields.agent_id?.some(v => th.selectedAgentValue.includes(v))
+      });
       th.tempRecords = [...newArr];
     },
     //#endregion
